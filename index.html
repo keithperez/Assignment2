@@ -14,6 +14,10 @@
                 var canvas = document.getElementById("myCanvas");
                 var context = canvas.getContext("2d");
 
+                var leftArmSlider = document.getElementById("slider");
+                leftArmSlider.value = 0;
+                var leftArmTheta = leftArmSlider.value*Math.PI;
+
                 // ball thing
                 var ball = {
                     x: canvas.width/2, // x coordinate of the ball
