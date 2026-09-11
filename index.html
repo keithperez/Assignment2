@@ -7,26 +7,18 @@
         <canvas id="myCanvas" width="640" height="480" style="border: 1px solid #000;">
             Your browser does not support the canvas element.
         </canvas>
-
+        <script type="text/javascript" src="/StickFigure.js"></script>
         <script type="text/javascript">
             window.onload = function() {
 
                 var canvas = document.getElementById("myCanvas");
                 var context = canvas.getContext("2d");
 
-                var leftArmSlider = document.getElementById("slider");
-                leftArmSlider.value = 0;
-                var leftArmTheta = leftArmSlider.value*Math.PI;
+                // var leftArmSlider = document.getElementById("slider");
+                // leftArmSlider.value = 0;
+                // var leftArmTheta = leftArmSlider.value*Math.PI;
 
-                // ball thing
-                var ball = {
-                    x: canvas.width/2, // x coordinate of the ball
-                    y: canvas.width/2, // y coordinate of the ball
-                    radius: 10,
-                    fillColor:"red",
-                    strokeColor:"grey",
-                    velocity_x:2,
-                    velocity_y:1};
+                var ball_chain = new StickFigure(context, canvas.width/2, canvas.height/2, 50, 0.05);
 
                 requestAnimationFrame(mainLoop);
 
@@ -41,39 +33,14 @@
 
                 function processInput() {}
                 function update() {
-                    ball.x = ball.x + ball.velocity_x;
-                    ball.y = ball.y + ball.velocity_y;
 
-                    if (ball.x + ball.radius > canvas.width) {
-                        ball.velocity_x = -ball.velocity_x;
-                    }
-                    if (ball.x < 0 + ball.radius) {
-                        ball.velocity_x = -ball.velocity_x;
-                    }
-                    if (ball.y + ball.radius > canvas.height) {
-                        ball.velocity_y = -ball.velocity_y;
-                    }
-                    if (ball.y < 0 + ball.radius) {
-                        ball.velocity_y = -ball.velocity_y;
-                    }
+                    ball_chain.update()
 
                 }
                 function draw() {
                     context.clearRect(0, 0, canvas.width, canvas.height);
-                    // thing
-                    context.beginPath();
 
-                    context.save();
-                    context.translate(ball.x, ball.y);
-
-                    context.arc(0, 0, ball.radius, 0, 2 * Math.PI, false);
-                    context.fillStyle = ball.fillColor;
-                    context.fill();
-                    context.lineWidth = 1;
-                    context.strokeStyle = ball.strokeColor;
-                    context.stroke();
-
-                    context.restore();
+                    ball_chain.draw();
 
                 }
 
